@@ -1,21 +1,79 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include <conio.h>
 
-void menu();
-void Available seats();
-void Arrange for you();
-void Choose by yourself();
-void Exit();
-void quit(char);
+#define PASSWORD 2024
+#define MAX_TRIES 3
+#define ROWS 9
+#define COLS 9
 
-int main(void)
-{
-	int num;
-	int i=0;
-	char ch;
-		
-	printf("5PPJJY77777!!~!!!!!YY?5555PPP5?J55Y5YY5YYYJ^JGPPP5\n"); //螢幕上出現個人風格的畫面
+void WelcomeScreen();
+int verifyPassword();
+void displayMenu();
+void showAvailableSeats(char seats[ROWS][COLS]);
+void arrangeSeatsForYou(char seats[ROWS][COLS]);
+void chooseSeatsByYourself(char seats[ROWS][COLS]);
+void clearScreen();
+void updateSeats(char seats[ROWS][COLS], int seatRow, int seatCol, char marker);
+void initializeSeats(char seats[ROWS][COLS]);
+void markRandomSeats(char seats[ROWS][COLS], int numSeats);
+void displaySeats(char seats[ROWS][COLS]);
+
+int main() {
+    char seats[ROWS][COLS];
+    char choice;
+    int exitProgram = 0;
+
+    initializeSeats(seats);
+    markRandomSeats(seats, 10);
+
+    WelcomeScreen();
+    if (!verifyPassword()) {
+        printf("Too many incorrect attempts. Exiting program.\n");
+        printf("\a");
+		return 0;
+    }
+
+    while (!exitProgram) {
+        clearScreen();
+        displayMenu();
+        choice = getch();
+
+        switch (choice) {
+            case 'a':
+            case 'A':
+                showAvailableSeats(seats);
+                break;
+            case 'b':
+            case 'B': 
+                arrangeSeatsForYou(seats);
+                break;
+            case 'c':
+            case 'C': 
+                chooseSeatsByYourself(seats);
+                break;
+            case 'd':
+            case 'D': 
+                printf("Continue? (y/n): ");
+                char continueChoice = getch();
+                if (continueChoice == 'n' ) {
+                    exitProgram = 1;
+                } else if (continueChoice != 'y' ) {
+                    printf("\nInvalid input. Returning to menu.\n");
+                }
+                break;
+            default:
+                printf("Invalid choice. Try again.\n");
+        }
+    }
+
+    printf("Program exited.\n");
+    return 0;
+}
+
+void WelcomeScreen() {
+    printf("5PPJJY77777!!~!!!!!YY?5555PPP5?J55Y5YY5YYYJ^JGPPP5\n"); //螢幕上出現個人風格的畫面
     printf("5PG?Y5YYY55YJJYY555YJ?J???JJYJ??JJJ????????^5PPPPP\n");
     printf("55GY5555PGBBBBBBBBBP??7777?JJJ??J??????????75P55JY\n");
     printf("YPJ?55Y55GGGGBBBBBBP?777777??J???777?7????7J555J7Y\n");
@@ -56,119 +114,33 @@ int main(void)
     printf("^~~!!~~~^~?~~~~^^~~!!!!~^::.....:~~^^!!^~?JJ!^^~!!\n");
     printf("^^~!!~~~~^7J!~~~^^^~~^^:......:^~~~^^~~~~?J?!^^~7!\n");
     printf("^^~~~~~~~~~??77!!~~~^^::::.:^~!!!~^:^^!!~7?7~^^!?7\n");
-	
-	printf("Give Me Four Number:");
-	for(i = 0 ; i <= 2 ;i++)
-	{ 
-		scanf("%d",&num);
-		
-		if (num==2024)
-		{
-			system("cls");
-			printf("Welcome \n");
-			break;
-		}
-		else
-		{
-			if(i>=2){
-				system("cls");
-				printf("3 times wrong!");
-				printf("\a");
-				system("pause");
-				return 0;
-			}
-			else
-			{
-				printf("wrong number,enter again:");
-				fflush(stdin);
-			 }
-		}
-	}
-	
-	menu();
+    printf("Give Me Four Number:");
 }
 
-void menu()
-{
-	char chose;
-	
-	printf("----------[BookingSystem]----------\n");
-    printf("|     a. Available seats          |\n");
-	printf("|     b. Arrange for you          |\n");
-	printf("|     c. Choose by yourself       |\n");
-	printf("|     d. Exit                     |\n");
-	printf("-----------------------------------\n");
-	fflush(stdin);
-	chose=getch();
-	system("cls");
-	switch(chose)
-	{
-		case 'a':
-		case 'A':
-			Available seats();
-			break;
-		case 'b':
-		case 'B':
-			Arrange for you();
-			break;
-		case 'c':
-		case 'C':
-			Choose by yourself();
-			break;
-		case 'd':
-		case 'D':
-			Exit();
-			break;
-		default:
-			system("cls");
-			printf("error");
-			getchar();
-			system("cls");
-			menu();
-			break;
-	}
-	system("pause");
-        	
+int verifyPassword() {        
+    int inputPassword, tries = 0;
+
+    while (tries < MAX_TRIES) {
+        scanf("%d", &inputPassword);
+        if (inputPassword == PASSWORD) {
+            printf("Password correct. Welcome!\n");
+            return 1;
+        } else {
+            tries++;
+            if (tries < MAX_TRIES) {
+                printf("Try again: ");
+            }
+        }
+    }
+    return 0;
 }
 
-void Available seats()
-{
-	int seat [ROW][COL];
-	int a[ROW][COL];
-	int i,j,time=10;
-	
-	srand(time(NULL));
-	
-	while(1)
-	{
-		if(time<=10){
-			i=rand()%9=1;
-			i=rand()%9=1;
-			time++;
-		}
-		else{
-			breaK;
-		}
-		
-	}
-	for(i=0;i<9;i++)
-	{
-		for(j=0;j<9;j++)
-		{
-			if(a[i][j]==1)
-			{
-				printf("* ");
-			}
-			if(a[i][j]==0)
-			{
-				printf("- ");
-			}
-		}
-		printf("\n");
-	}
-	fflush (stdin);
-	getchar();
-	system("cls");
-	menu();
+void displayMenu() {
+    printf("----------[Booking System]----------\n");
+    printf("|  a. Available seats              |\n");
+    printf("|  b. Arrange for you              |\n");
+    printf("|  c. Choose by yourself           |\n");
+    printf("|  d. Exit                         |\n");
+    printf("------------------------------------\n");
 }
 
