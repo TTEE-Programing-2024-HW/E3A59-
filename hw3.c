@@ -133,6 +133,42 @@ void menu()
 
 void Available seats()
 {
+	int seat [ROW][COL];
+	int a[ROW][COL];
+	int i,j,time=0;
 	
+	srand(time(NULL));
+	
+	while(1)
+	{
+		if(time<10){
+			i=rand()%9=1;
+			i=rand()%9=1;
+			time++;
+		}
+		else{
+			breaK;
+		}
+		
+	}
+	for(i=0;i<9;i++)
+	{
+		for(j=0;j<9;j++)
+		{
+			if(a[i][j]==1)
+			{
+				printf("* ");
+			}
+			if(a[i][j]==0)
+			{
+				printf("- ");
+			}
+		}
+		printf("\n");
+	}
+	fflush (stdin);
+	getchar();
+	system("cls");
+	menu();
 }
 
