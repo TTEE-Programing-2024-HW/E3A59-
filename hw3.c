@@ -2,14 +2,20 @@
 #include <stdlib.h>
 #include <conio.h>
 
-void menu();		
+void menu();
+void Available seats();
+void Arrange for you();
+void Choose by yourself();
+void Exit();
+void quit(char);
 
-
-int main(void)   
+int main(void)
 {
-	
+	int num;
+	int i=0;
+	char ch;
 		
-    printf("5PPJJY77777!!~!!!!!YY?5555PPP5?J55Y5YY5YYYJ^JGPPP5\n"); 
+	printf("5PPJJY77777!!~!!!!!YY?5555PPP5?J55Y5YY5YYYJ^JGPPP5\n"); //螢幕上出現個人風格的畫面
     printf("5PG?Y5YYY55YJJYY555YJ?J???JJYJ??JJJ????????^5PPPPP\n");
     printf("55GY5555PGBBBBBBBBBP??7777?JJJ??J??????????75P55JY\n");
     printf("YPJ?55Y55GGGGBBBBBBP?777777??J???777?7????7J555J7Y\n");
@@ -50,7 +56,83 @@ int main(void)
     printf("^~~!!~~~^~?~~~~^^~~!!!!~^::.....:~~^^!!^~?JJ!^^~!!\n");
     printf("^^~!!~~~~^7J!~~~^^^~~^^:......:^~~~^^~~~~?J?!^^~7!\n");
     printf("^^~~~~~~~~~??77!!~~~^^::::.:^~!!!~^:^^!!~7?7~^^!?7\n");
-    
-    printf("Give Me Four Number:"); 
+	
+	printf("Give Me Four Number:");
+	for(i = 0 ; i <= 2 ;i++)
+	{ 
+		scanf("%d",&num);
+		
+		if (num==2024)
+		{
+			system("cls");
+			printf("Welcome \n");
+			break;
+		}
+		else
+		{
+			if(i>=2){
+				system("cls");
+				printf("3 times wrong!");
+				printf("\a");
+				system("pause");
+				return 0;
+			}
+			else
+			{
+				printf("wrong number,enter again:");
+				fflush(stdin);
+			 }
+		}
+	}
+	
+	menu();
+}
+
+void menu()
+{
+	char chose;
+	
+	printf("----------[BookingSystem]----------\n");
+    printf("|     a. Available seats          |\n");
+	printf("|     b. Arrange for you          |\n");
+	printf("|     c. Choose by yourself       |\n");
+	printf("|     d. Exit                     |\n");
+	printf("-----------------------------------\n");
+	fflush(stdin);
+	chose=getch();
+	system("cls");
+	switch(chose)
+	{
+		case 'a':
+		case 'A':
+			Available seats();
+			break;
+		case 'b':
+		case 'B':
+			Arrange for you();
+			break;
+		case 'c':
+		case 'C':
+			Choose by yourself();
+			break;
+		case 'd':
+		case 'D':
+			Exit();
+			break;
+		default:
+			system("cls");
+			printf("error");
+			getchar();
+			system("cls");
+			menu();
+			break;
+	}
+	system("pause");
+        	
+}
+
+void Available seats()
+{
+	
 }
 
