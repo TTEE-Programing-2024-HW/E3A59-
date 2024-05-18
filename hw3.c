@@ -135,13 +135,13 @@ void Available seats()
 {
 	int seat [ROW][COL];
 	int a[ROW][COL];
-	int i,j,time=0;
+	int i,j,time=10;
 	
 	srand(time(NULL));
 	
 	while(1)
 	{
-		if(time<10){
+		if(time<=10){
 			i=rand()%9=1;
 			i=rand()%9=1;
 			time++;
