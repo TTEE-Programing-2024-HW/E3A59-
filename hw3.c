@@ -29,18 +29,21 @@ int main() {
     markRandomSeats(seats, 10);
 
     WelcomeScreen();
-    if (!verifyPassword()) {
+    if (!verifyPassword()) 
+	{
         printf("Too many incorrect attempts. Exiting program.\n");
         printf("\a");
 		return 0;
     }
 
-    while (!exitProgram) {
+    while (!exitProgram) 
+	{
         clearScreen();
         displayMenu();
         choice = getch();
 
-        switch (choice) {
+        switch (choice) 
+		{
             case 'a':                        //a:  Available seats 
             case 'A':
                 showAvailableSeats(seats);
@@ -57,9 +60,12 @@ int main() {
             case 'D': 
                 printf("Continue? (y/n): ");
                 char continueChoice = getch();
-                if (continueChoice == 'n' ) {
+                if (continueChoice == 'n' ) 
+				{
                     exitProgram = 1;
-                } else if (continueChoice != 'y' ) {
+                } 
+				else if (continueChoice != 'y' ) 
+				{
                     printf("\nInvalid input. Returning to menu.\n");
                 }
                 break;
@@ -72,7 +78,8 @@ int main() {
     return 0;
 }
 
-void WelcomeScreen() {
+void WelcomeScreen() 
+{
     printf("5PPJJY77777!!~!!!!!YY?5555PPP5?J55Y5YY5YYYJ^JGPPP5\n"); //螢幕上出現個人風格的畫面
     printf("5PG?Y5YYY55YJJYY555YJ?J???JJYJ??JJJ????????^5PPPPP\n");
     printf("55GY5555PGBBBBBBBBBP??7777?JJJ??J??????????75P55JY\n");
@@ -117,17 +124,23 @@ void WelcomeScreen() {
     printf("Give Me Four Number:");
 }
 
-int verifyPassword() {        
+int verifyPassword() 
+{        
     int inputPassword, tries = 0;
 
-    while (tries < MAX_TRIES) {
+    while (tries < MAX_TRIES) 
+	{
         scanf("%d", &inputPassword);
-        if (inputPassword == PASSWORD) {
+        if (inputPassword == PASSWORD) 
+		{
             printf("Password correct. Welcome!\n");
             return 1;
-        } else {
+        } 
+		else 
+		{
             tries++;
-            if (tries < MAX_TRIES) {
+            if (tries < MAX_TRIES) 
+			{
                 printf("Try again: ");
             }
         }
@@ -135,7 +148,8 @@ int verifyPassword() {
     return 0;
 }
 
-void displayMenu() {
+void displayMenu() 
+{
     printf("----------[Booking System]----------\n");
     printf("|  a. Available seats              |\n");
     printf("|  b. Arrange for you              |\n");
@@ -143,32 +157,41 @@ void displayMenu() {
     printf("|  d. Exit                         |\n");
     printf("------------------------------------\n");
 }
-void showAvailableSeats(char seats[ROWS][COLS]) {
+void showAvailableSeats(char seats[ROWS][COLS]) 
+{
     clearScreen();
     displaySeats(seats);
     printf("Press any key to return to the menu.\n");
     getch();
 }
 
-void arrangeSeatsForYou(char seats[ROWS][COLS]) {
+void arrangeSeatsForYou(char seats[ROWS][COLS]) 
+{
     clearScreen();
     int seatsNeeded, i, j, found = 0;
     printf("How many seats do you need (1-4)? ");
     scanf("%d", &seatsNeeded);
 
     // Finding and marking seats
-    if (seatsNeeded >= 1 && seatsNeeded <= 3) {
-        for (i = 0; i < ROWS && !found; i++) {
-            for (j = 0; j <= COLS - seatsNeeded; j++) {
+    if (seatsNeeded >= 1 && seatsNeeded <= 3) 
+	{
+        for (i = 0; i < ROWS && !found; i++) 
+		{
+            for (j = 0; j <= COLS - seatsNeeded; j++) 
+			{
                 int k, empty = 1;
-                for (k = 0; k < seatsNeeded; k++) {
-                    if (seats[i][j + k] != '-') {
+                for (k = 0; k < seatsNeeded; k++) 
+				{
+                    if (seats[i][j + k] != '-') 
+					{
                         empty = 0;
                         break;
                     }
                 }
-                if (empty) {
-                    for (k = 0; k < seatsNeeded; k++) {
+                if (empty) 
+				{
+                    for (k = 0; k < seatsNeeded; k++) 
+					{
                         seats[i][j + k] = '@';
                     }
                     found = 1;
@@ -176,11 +199,15 @@ void arrangeSeatsForYou(char seats[ROWS][COLS]) {
                 }
             }
         }
-    } else if (seatsNeeded == 4) {
-        for (i = 0; i < ROWS - 1 && !found; i++) {
-            for (j = 0; j <= COLS - 2; j++) {
-                if (seats[i][j] == '-' && seats[i][j + 1] == '-' &&
-                    seats[i + 1][j] == '-' && seats[i + 1][j + 1] == '-') {
+    } 
+	else if (seatsNeeded == 4) 
+	{
+        for (i = 0; i < ROWS - 1 && !found; i++) 
+		{
+            for (j = 0; j <= COLS - 2; j++) 
+			{
+                if (seats[i][j] == '-' && seats[i][j + 1] == '-' && seats[i + 1][j] == '-' && seats[i + 1][j + 1] == '-') 
+				{
                     seats[i][j] = seats[i][j + 1] = seats[i + 1][j] = seats[i + 1][j + 1] = '@';
                     found = 1;
                     break;
@@ -192,22 +219,80 @@ void arrangeSeatsForYou(char seats[ROWS][COLS]) {
 
     printf("Are you satisfied with the arrangement? (y/n): ");
     char satisfied = getch();
-    if (satisfied == 'y') {
-        for (i = 0; i < ROWS; i++) {
-            for (j = 0; j < COLS; j++) {
-                if (seats[i][j] == '@') {
+    if (satisfied == 'y') 
+	{
+        for (i = 0; i < ROWS; i++) 
+		{
+            for (j = 0; j < COLS; j++) 
+			{
+                if (seats[i][j] == '@') 
+				{
                     seats[i][j] = '*';
                 }
             }
         }
-    } else {
-        for (i = 0; i < ROWS; i++) {
-            for (j = 0; j < COLS; j++) {
-                if (seats[i][j] == '@') {
+    } 
+	else 
+	{
+        for (i = 0; i < ROWS; i++) 
+		{
+            for (j = 0; j < COLS; j++) 
+			{
+                if (seats[i][j] == '@') 
+				{
                     seats[i][j] = '-';
                 }
             }
         }
     }
 }
+void chooseSeatsByYourself(char seats[ROWS][COLS]) 
+{
+    clearScreen();
+    char input[5];
+    int row, col, valid;
 
+    do 
+	{
+        valid = 1; // Assume input is valid at the start
+        printf("Enter your seat choice (e.g., 1-2 for row 1, column 2): ");
+        scanf("%s", input);
+
+        if (sscanf(input, "%d-%d", &row, &col) == 2 && row >= 1 && row <= ROWS && col >= 1 && col <= COLS) 
+		{
+            if (seats[row - 1][col - 1] == '-') 
+			{
+                seats[row - 1][col - 1] = '@';
+            } 
+			else 
+			{
+                printf("Seat already taken. Try again.\n");
+                valid = 0;
+            }
+        } 
+		else 
+		{
+            printf("Invalid input format. Try again.\n");
+            valid = 0;
+        }
+    } 
+	while (!valid);
+
+    displaySeats(seats);
+    printf("Press any key to confirm.\n");
+    getch();
+
+    for (int i = 0; i < ROWS; i++) 
+	{
+        for (int j = 0; j < COLS; j++) 
+		{
+            if (seats[i][j] == '@') 
+			{
+                seats[i][j] = '*';
+            }
+        }
+    }
+}
+
+void clearScreen() {
+    system("cls"); // For Windows
