@@ -294,21 +294,58 @@ void chooseSeatsByYourself(char seats[ROWS][COLS])
     }
 }
 
-void clearScreen() {
+void clearScreen() 
+{
     system("cls");  
-    
+}
 void updateSeats(char seats[ROWS][COLS], int seatRow, int seatCol, char marker) 
 {
-    if (seatRow >= 0 && seatRow <= ROWS &&  seatCol <= COLS) 
+    if (seatRow >= 0 && seatRow < ROWS && seatCol >= 0 && seatCol < COLS)
 	{
-        seats[seatRow][seatCol] >= marker;
+        seats[seatRow][seatCol] = marker;
     }
 }
 
-void initializeSeats(char seats[ROWS][COLS]) {
-    for (int j = 0; j < COLS; j++) 
+void initializeSeats(char seats[ROWS][COLS]) 
+{
+    for (int i = 0; i < ROWS; i++) 
 	{
-        seats[i][j] = '-';
+        for (int j = 0; j < COLS; j++) 
+		{
+            seats[i][j] = '-';
+        }
+    }
+}
+
+void markRandomSeats(char seats[ROWS][COLS], int numSeats) 
+{
+    srand(time(0));
+    for (int i = 0; i < numSeats; i++) 
+	{
+        int row = rand() % ROWS;
+        int col = rand() % COLS;
+        if (seats[row][col] == '-') 
+		{
+            seats[row][col] = '*';
+        } 
+		else 
+		{
+            i--; //  if the seat is already take
+        }
+    }
+}
+
+void displaySeats(char seats[ROWS][COLS]) 
+{
+    printf("  123456789\n");
+    for (int i = ROWS - 1; i >= 0; i--) 
+	{
+        printf("%d ", i + 1);
+        for (int j = 0; j < COLS; j++) 
+		{
+            printf("%c", seats[i][j]);
+        }
+        printf("\n");
     }
 }
 
