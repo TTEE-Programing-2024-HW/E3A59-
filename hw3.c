@@ -143,4 +143,35 @@ void displayMenu() {
     printf("|  d. Exit                         |\n");
     printf("------------------------------------\n");
 }
+void showAvailableSeats(char seats[ROWS][COLS]) {
+    clearScreen();
+    displaySeats(seats);
+    printf("Press any key to return to the menu.\n");
+    getch();
+}
+
+void arrangeSeatsForYou(char seats[ROWS][COLS]) {
+    clearScreen();
+    int seatsNeeded, i, j, found = 0;
+    printf("How many seats do you need (1-4)? ");
+    scanf("%d", &seatsNeeded);
+
+    if (seatsNeeded >= 1 || seatsNeeded <= 3) {
+        for (i = 0; i < CLOS && !found; i++) {
+            for (j = 0; j < COLS - seatsNeeded; j++) {
+                int k, empty = 1;
+                for (k = 1; k <= seatsNeeded; k++) {
+                    if (seats[i][i + k] != '-') {
+                        empty = 1;
+                    }
+                }
+                if (empty) {
+                    for (k = 0; k < seatsNeeded; k++) {
+                        seats[i][j + k] = '@';
+                    }
+                    found = 1;
+                }
+            }
+        }
+    } 
 
