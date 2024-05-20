@@ -156,13 +156,15 @@ void arrangeSeatsForYou(char seats[ROWS][COLS]) {
     printf("How many seats do you need (1-4)? ");
     scanf("%d", &seatsNeeded);
 
-    if (seatsNeeded >= 1 || seatsNeeded <= 3) {
-        for (i = 0; i < CLOS && !found; i++) {
-            for (j = 0; j < COLS - seatsNeeded; j++) {
+    // Finding and marking seats
+    if (seatsNeeded >= 1 && seatsNeeded <= 3) {
+        for (i = 0; i < ROWS && !found; i++) {
+            for (j = 0; j <= COLS - seatsNeeded; j++) {
                 int k, empty = 1;
-                for (k = 1; k <= seatsNeeded; k++) {
-                    if (seats[i][i + k] != '-') {
-                        empty = 1;
+                for (k = 0; k < seatsNeeded; k++) {
+                    if (seats[i][j + k] != '-') {
+                        empty = 0;
+                        break;
                     }
                 }
                 if (empty) {
@@ -170,8 +172,20 @@ void arrangeSeatsForYou(char seats[ROWS][COLS]) {
                         seats[i][j + k] = '@';
                     }
                     found = 1;
+                    break;
                 }
             }
         }
-    } 
+    } else if (seatsNeeded == 4) {
+        for (i = 0; i < ROWS - 1 && !found; i++) {
+            for (j = 0; j <= COLS - 2; j++) {
+                if (seats[i][j] == '-' && seats[i][j + 1] == '-' &&
+                    seats[i + 1][j] == '-' && seats[i + 1][j + 1] == '-') {
+                    seats[i][j] = seats[i][j + 1] = seats[i + 1][j] = seats[i + 1][j + 1] = '@';
+                    found = 1;
+                    break;
+                }
+            }
+        }
+    }
 
