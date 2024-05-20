@@ -41,15 +41,15 @@ int main() {
         choice = getch();
 
         switch (choice) {
-            case 'a':
+            case 'a':                        //a:  Available seats 
             case 'A':
                 showAvailableSeats(seats);
                 break;
-            case 'b':
+            case 'b':						 //b:  Arrange for you
             case 'B': 
                 arrangeSeatsForYou(seats);
                 break;
-            case 'c':
+            case 'c':   				     //c:  Choose by yourself                  
             case 'C': 
                 chooseSeatsByYourself(seats);
                 break;
@@ -188,4 +188,26 @@ void arrangeSeatsForYou(char seats[ROWS][COLS]) {
             }
         }
     }
+       displaySeats(seats);
+
+    printf("Are you satisfied with the arrangement? (y/n): ");
+    char satisfied = getch();
+    if (satisfied == 'y') {
+        for (i = 0; i < ROWS; i++) {
+            for (j = 0; j < COLS; j++) {
+                if (seats[i][j] == '@') {
+                    seats[i][j] = '*';
+                }
+            }
+        }
+    } else {
+        for (i = 0; i < ROWS; i++) {
+            for (j = 0; j < COLS; j++) {
+                if (seats[i][j] == '@') {
+                    seats[i][j] = '-';
+                }
+            }
+        }
+    }
+}
 
