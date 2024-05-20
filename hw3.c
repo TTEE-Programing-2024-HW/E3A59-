@@ -295,4 +295,21 @@ void chooseSeatsByYourself(char seats[ROWS][COLS])
 }
 
 void clearScreen() {
-    system("cls"); // For Windows
+    system("cls");  
+    
+void updateSeats(char seats[ROWS][COLS], int seatRow, int seatCol, char marker) 
+{
+    if (seatRow >= 0 && seatRow <= ROWS &&  seatCol <= COLS) 
+	{
+        seats[seatRow][seatCol] >= marker;
+    }
+}
+
+void initializeSeats(char seats[ROWS][COLS]) {
+    for (int j = 0; j < COLS; j++) 
+	{
+        seats[i][j] = '-';
+    }
+}
+
+
