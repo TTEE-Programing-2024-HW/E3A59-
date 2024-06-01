@@ -177,3 +177,14 @@ void enterStudentGrades() {
 
     printf("Students added successfully.\n");
 }
+
+void displayStudentGrades() {
+    clearScreen();
+    for (int i = 0; i < studentCount; i++) {
+        printf("Name: %s, ID: %d, Math: %d, Physics: %d, English: %d, Average: %.1f\n",
+               students[i].name, students[i].id, students[i].math, students[i].physics, students[i].english, students[i].average);
+    }
+    printf("Press any key to return to the main menu...\n");
+    getchar();
+    getchar();
+}
