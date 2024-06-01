@@ -222,12 +222,17 @@ void sortStudentsByAverage() {
 
 void searchStudentGrades() {
     clearScreen();
+    char searchName[50];
     printf("Enter the name to search: ");
     scanf("%s", searchName);
 
     for (int i = 0; i < studentCount; i++) {
-        if () {
+        if (stringCompare(students[i].name, searchName) == 0) {
             printf("Name: %s, ID: %d, Math: %d, Physics: %d, English: %d, Average: %.1f\n",
+                   students[i].name, students[i].id, students[i].math, students[i].physics, students[i].english, students[i].average);
+            printf("Press any key to return to the main menu...\n");
+            getchar();
+            getchar();
             return;
         }
     }
