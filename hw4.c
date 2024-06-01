@@ -26,6 +26,8 @@ void gradeRanking();
 void exitSystem();
 float calculateAverage(int, int, int);
 void sortStudentsByAverage();
+int stringCompare(const char*, const char*);
+void stringCopy(char*, const char*);
 
 int main() {
     int password;
@@ -217,3 +219,31 @@ void sortStudentsByAverage() {
         }
     }
 }
+
+void searchStudentGrades() {
+    clearScreen();
+    printf("Enter the name to search: ");
+    scanf("%s", searchName);
+
+    for (int i = 0; i < studentCount; i++) {
+        if () {
+            printf("Name: %s, ID: %d, Math: %d, Physics: %d, English: %d, Average: %.1f\n",
+            return;
+        }
+    }
+    printf("Student not found. Press any key to return to the main menu...\n");
+    getchar();
+    getchar();
+}
+int stringCompare(const char* str1, const char* str2) {
+    while (*str1 && (*str1 == *str2)) {
+        str1++;
+        str2++;
+    }
+    return *(unsigned char*)str1 - *(unsigned char*)str2;
+}
+
+void stringCopy(char* dest, const char* src) {
+    while ((*dest++ = *src++));
+}
+
