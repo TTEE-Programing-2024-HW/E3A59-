@@ -25,6 +25,7 @@ void searchStudentGrades();
 void gradeRanking();
 void exitSystem();
 float calculateAverage(int, int, int);
+void sortStudentsByAverage();
 
 int main() {
     int password;
@@ -187,4 +188,32 @@ void displayStudentGrades() {
     printf("Press any key to return to the main menu...\n");
     getchar();
     getchar();
+}
+
+void gradeRanking() {
+    clearScreen();
+    sortStudentsByAverage();
+    for (int i = 0; i < studentCount; i++) {
+        printf("Name: %s, ID: %d, Average: %.1f\n",
+               students[i].name, students[i].id, students[i].average);
+    }
+    printf("Press any key to return to the main menu...\n");
+    getchar();
+    getchar();
+}
+
+float calculateAverage(int math, int physics, int english) {
+    return (math + physics + english) / 3.0;
+}
+
+void sortStudentsByAverage() {
+    for (int i = 0; i < studentCount - 1; i++) {
+        for (int j = i + 1; j < studentCount; j++) {
+            if (students[i].average < students[j].average) {
+                Student temp = students[i];
+                students[i] = students[j];
+                students[j] = temp;
+            }
+        }
+    }
 }
