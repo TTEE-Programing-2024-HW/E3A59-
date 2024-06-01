@@ -117,3 +117,24 @@ void displayWelcomeMessage() {
 void clearScreen() {
     system("clear || cls");
 }
+
+void enterStudentGrades() {
+    clearScreen();
+    if (studentCount >= MAX_STUDENTS) {
+        printf("Maximum number of students reached.\n");
+        return;
+    }
+
+    int n;
+    printf("Enter the number of students (5-10): ");
+    while (n>5 && n<10){
+        printf("Invalid number. Please enter a number between 5 and 10: ");
+        while (getchar() != '\n'); // clear buffer
+    }
+
+    for (int i = 0; i < n; i++) {
+        printf("Enter details for student %d\n", studentCount + 1);
+        printf("Name: ");
+        scanf("%s", students[studentCount].name);
+    }
+}
