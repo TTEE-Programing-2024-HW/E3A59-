@@ -5,6 +5,12 @@
 #define ATTEMPTS 3
 
 void displayWelcomeMessage();
+void clearScreen();
+void enterStudentGrades();
+void displayStudentGrades();
+void searchStudentGrades();
+void gradeRanking();
+void exitSystem();
 
 int main() {
     int password;
@@ -69,7 +75,45 @@ int main() {
         return 0;
     }
     
+    char choice;
+    while (1) {
+        clearScreen();
+        printf("------------[Grade System]----------\n");
+        printf("|  a. Enter student grades          |\n");
+        printf("|  b. Display student grades        |\n");
+        printf("|  c. Search for student grades     |\n");
+        printf("|  d. Grade ranking                 |\n");
+        printf("|  e. Exit system                   |\n");
+        printf("------------------------------------\n");
+        printf("Enter your choice: ");
+        scanf(" %c", &choice);
+
+        switch (choice) {
+            case 'a':
+                enterStudentGrades();
+                break;
+            case 'b':
+                displayStudentGrades();
+                break;
+            case 'c':
+                searchStudentGrades();
+                break;
+            case 'd':
+                gradeRanking();
+                break;
+            case 'e':
+                exitSystem();
+                return 0;
+            default:
+                printf("Invalid choice. Please try again.\n");
+                break;
+        }
+    }
 }
 void displayWelcomeMessage() {
     printf("Welcome to the Grade System!\n");
+}
+
+void clearScreen() {
+    system("clear || cls");
 }
