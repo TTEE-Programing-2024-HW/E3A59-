@@ -24,6 +24,7 @@ void displayStudentGrades();
 void searchStudentGrades();
 void gradeRanking();
 void exitSystem();
+float calculateAverage(int, int, int);
 
 int main() {
     int password;
@@ -140,7 +141,7 @@ void enterStudentGrades() {
 
     int n;
     printf("Enter the number of students (5-10): ");
-    while (n>5 && n<10){
+    while (scanf("%d", &n) != 1 || n < 5 || n > 10 || (studentCount + n) > MAX_STUDENTS) {
         printf("Invalid number. Please enter a number between 5 and 10: ");
         while (getchar() != '\n'); 
     }
@@ -149,15 +150,30 @@ void enterStudentGrades() {
         printf("Enter details for student %d\n", studentCount + 1);
         printf("Name: ");
         scanf("%s", students[studentCount].name);
-        while (students[studentCount].id < 100000 || students[studentCount].id > 999999) {
+        printf("ID (6 digits): ");
+        while (scanf("%d", &students[studentCount].id) != 1 || students[studentCount].id < 100000 || students[studentCount].id > 999999) {
             printf("Invalid ID. Please enter a 6-digit ID: ");
             while (getchar() != '\n'); 
         }
         printf("Math score (0-100): ");
-        while ( students[studentCount].math < 0 || students[studentCount].math > 100) {
+        while (scanf("%d", &students[studentCount].math) != 1 || students[studentCount].math < 0 || students[studentCount].math > 100) {
             printf("Invalid score. Please enter a score between 0 and 100: ");
             while (getchar() != '\n'); 
         }
         printf("Physics score (0-100): ");
+        while (scanf("%d", &students[studentCount].physics) != 1 || students[studentCount].physics < 0 || students[studentCount].physics > 100) {
+            printf("Invalid score. Please enter a score between 0 and 100: ");
+            while (getchar() != '\n'); 
+        }
+        printf("English score (0-100): ");
+        while (scanf("%d", &students[studentCount].english) != 1 || students[studentCount].english < 0 || students[studentCount].english > 100) {
+            printf("Invalid score. Please enter a score between 0 and 100: ");
+            while (getchar() != '\n');
+        }
+
+        students[studentCount].average = calculateAverage(students[studentCount].math, students[studentCount].physics, students[studentCount].english);
+        studentCount++;
     }
+
+    printf("Students added successfully.\n");
 }
