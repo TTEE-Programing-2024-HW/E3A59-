@@ -17,8 +17,9 @@ typedef struct {
 Student students[MAX_STUDENTS];
 int studentCount = 0;
 
-void displayWelcomeMessage();
+// Function prototypes
 void clearScreen();
+void displayWelcomeMessage();
 void enterStudentGrades();
 void displayStudentGrades();
 void searchStudentGrades();
@@ -33,7 +34,7 @@ int main() {
     int password;
     int attempts = 0;
 
-    
+    // Display personalized screen
     printf("5PPJJY77777!!~!!!!!YY?5555PPP5?J55Y5YY5YYYJ^JGPPP5\n"); //螢幕上出現個人風格的畫面
     printf("5PG?Y5YYY55YJJYY555YJ?J???JJYJ??JJJ????????^5PPPPP\n");
     printf("55GY5555PGBBBBBBBBBP??7777?JJJ??J??????????75P55JY\n");
@@ -75,7 +76,8 @@ int main() {
     printf("^~~!!~~~^~?~~~~^^~~!!!!~^::.....:~~^^!!^~?JJ!^^~!!\n");
     printf("^^~!!~~~~^7J!~~~^^^~~^^:......:^~~~^^~~~~?J?!^^~7!\n");
     printf("^^~~~~~~~~~??77!!~~~^^::::.:^~!!!~^:^^!!~7?7~^^!?7\n");
-    
+
+    // Password prompt
     while (attempts < ATTEMPTS) {
         printf("Please enter the 4-digit password: ");
         scanf("%d", &password);
@@ -87,11 +89,13 @@ int main() {
             attempts++;
         }
     }
+
     if (attempts == ATTEMPTS) {
         printf("Too many incorrect attempts. Exiting program.\n");
         return 0;
     }
-    
+
+    // Main menu loop
     char choice;
     while (1) {
         clearScreen();
@@ -127,12 +131,13 @@ int main() {
         }
     }
 }
-void displayWelcomeMessage() {
-    printf("Welcome to the Grade System!\n");
-}
 
 void clearScreen() {
     system("clear || cls");
+}
+
+void displayWelcomeMessage() {
+    printf("Welcome to the Grade System!\n");
 }
 
 void enterStudentGrades() {
@@ -146,7 +151,7 @@ void enterStudentGrades() {
     printf("Enter the number of students (5-10): ");
     while (scanf("%d", &n) != 1 || n < 5 || n > 10 || (studentCount + n) > MAX_STUDENTS) {
         printf("Invalid number. Please enter a number between 5 and 10: ");
-        while (getchar() != '\n'); 
+        while (getchar() != '\n'); // clear buffer
     }
 
     for (int i = 0; i < n; i++) {
@@ -156,22 +161,22 @@ void enterStudentGrades() {
         printf("ID (6 digits): ");
         while (scanf("%d", &students[studentCount].id) != 1 || students[studentCount].id < 100000 || students[studentCount].id > 999999) {
             printf("Invalid ID. Please enter a 6-digit ID: ");
-            while (getchar() != '\n'); 
+            while (getchar() != '\n'); // clear buffer
         }
         printf("Math score (0-100): ");
         while (scanf("%d", &students[studentCount].math) != 1 || students[studentCount].math < 0 || students[studentCount].math > 100) {
             printf("Invalid score. Please enter a score between 0 and 100: ");
-            while (getchar() != '\n'); 
+            while (getchar() != '\n'); // clear buffer
         }
         printf("Physics score (0-100): ");
         while (scanf("%d", &students[studentCount].physics) != 1 || students[studentCount].physics < 0 || students[studentCount].physics > 100) {
             printf("Invalid score. Please enter a score between 0 and 100: ");
-            while (getchar() != '\n'); 
+            while (getchar() != '\n'); // clear buffer
         }
         printf("English score (0-100): ");
         while (scanf("%d", &students[studentCount].english) != 1 || students[studentCount].english < 0 || students[studentCount].english > 100) {
             printf("Invalid score. Please enter a score between 0 and 100: ");
-            while (getchar() != '\n');
+            while (getchar() != '\n'); // clear buffer
         }
 
         students[studentCount].average = calculateAverage(students[studentCount].math, students[studentCount].physics, students[studentCount].english);
@@ -190,34 +195,6 @@ void displayStudentGrades() {
     printf("Press any key to return to the main menu...\n");
     getchar();
     getchar();
-}
-
-void gradeRanking() {
-    clearScreen();
-    sortStudentsByAverage();
-    for (int i = 0; i < studentCount; i++) {
-        printf("Name: %s, ID: %d, Average: %.1f\n",
-               students[i].name, students[i].id, students[i].average);
-    }
-    printf("Press any key to return to the main menu...\n");
-    getchar();
-    getchar();
-}
-
-float calculateAverage(int math, int physics, int english) {
-    return (math + physics + english) / 3.0;
-}
-
-void sortStudentsByAverage() {
-    for (int i = 0; i < studentCount - 1; i++) {
-        for (int j = i + 1; j < studentCount; j++) {
-            if (students[i].average < students[j].average) {
-                Student temp = students[i];
-                students[i] = students[j];
-                students[j] = temp;
-            }
-        }
-    }
 }
 
 void searchStudentGrades() {
@@ -240,6 +217,51 @@ void searchStudentGrades() {
     getchar();
     getchar();
 }
+
+void gradeRanking() {
+    clearScreen();
+    sortStudentsByAverage();
+    for (int i = 0; i < studentCount; i++) {
+        printf("Name: %s, ID: %d, Average: %.1f\n",
+               students[i].name, students[i].id, students[i].average);
+    }
+    printf("Press any key to return to the main menu...\n");
+    getchar();
+    getchar();
+}
+
+void exitSystem() {
+    char confirm;
+    printf("Are you sure you want to exit? (y/n): ");
+    while (1) {
+        scanf(" %c", &confirm);
+        if (confirm == 'y') {
+            printf("Exiting system...\n");
+            exit(0);
+        } else if (confirm == 'n') {
+            return;
+        } else {
+            printf("Invalid input. Please enter 'y' or 'n': ");
+        }
+    }
+}
+
+float calculateAverage(int math, int physics, int english) {
+    return (math + physics + english) / 3.0;
+}
+
+void sortStudentsByAverage() {
+    for (int i = 0; i < studentCount - 1; i++) {
+        for (int j = i + 1; j < studentCount; j++) {
+            if (students[i].average < students[j].average) {
+                Student temp = students[i];
+                students[i] = students[j];
+                students[j] = temp;
+            }
+        }
+    }
+}
+
 int stringCompare(const char* str1, const char* str2) {
     while (*str1 && (*str1 == *str2)) {
         str1++;
